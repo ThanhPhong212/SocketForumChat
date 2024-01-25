@@ -4,15 +4,29 @@ const http = require("http");
 const socketio = require("socket.io");
 const { storeUser, getUser, getRoomUser, userLeave } = require("./services/users");
 const { formatMess } = require("./services/message");
-const cors = require('cors');
+const cors = require("cors");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
 const botName = "Bot";
 
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+  cors: {
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  },
+});
 
 io.on("connection", (socket) => {
   socket.on("userJoinRoom", ({ username, room }) => {
