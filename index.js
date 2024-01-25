@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
 
 app.get("/", (req, resp) => resp.send("socket-v1"));
 
-server.listen(8000, () => {
+server.listen(443, () => {
   console.log(`Server is running`);
 });
 
