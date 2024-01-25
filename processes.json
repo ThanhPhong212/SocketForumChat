@@ -1,0 +1,9 @@
+[
+    {
+        "script": "index.js",
+        "name": "socketLMS",
+        "ignore_watch": [
+            "node_modules"
+        ]
+    }
+]
