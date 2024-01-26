@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const http = require('http');
+const http = require("http");
 const socketio = require("socket.io");
 const cors = require("cors");
 
@@ -35,12 +35,10 @@ io.on("connection", (socket) => {
   socket.on("sendReplyServer", (data) => {
     io.to(courseId).emit("sendReplyClient", data);
   });
-
 });
 
 app.get("/", (req, resp) => resp.send("socket-v1"));
 
-server.listen(8000, () => {
+server.listen(process.env.PORT || 3000, () => {
   console.log(`Server is running`);
 });
-
