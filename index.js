@@ -14,8 +14,6 @@ app.use(
   })
 );
 
-const botName = "Bot";
-
 const server = http.createServer(app);
 const io = socketio(server, {
   cors: {
