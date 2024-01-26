@@ -44,4 +44,3 @@ server.listen(8000, () => {
   console.log(`Server is running`);
 });
 
-app.use(express.static(path.join(__dirname, "public")));
