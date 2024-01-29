@@ -35,6 +35,10 @@ io.on("connection", (socket) => {
   socket.on("sendReplyServer", (data) => {
     io.to(courseId).emit("sendReplyClient", data);
   });
+
+  socket.on("replyResServer", (id) => {
+    io.to(courseId).emit("replyResClient", id);
+  });
 });
 
 app.get("/", (req, resp) => resp.send("socket-v1"));
