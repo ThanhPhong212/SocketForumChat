@@ -16,6 +16,7 @@ app.use(
 
 const server = http.createServer(app);
 const io = socketio(server, {
+  maxHttpBufferSize: 2e8,
   cors: {
     origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
