@@ -40,6 +40,15 @@ io.on("connection", (socket) => {
   socket.on("replyResServer", (id) => {
     io.to(courseId).emit("replyResClient", id);
   });
+
+  socket.on("actionSocketPush", (data) => {
+    io.emit("actionClient", data);
+  });
+
+  socket.on("actionSocketPull", (data) => {
+    io.emit("actionPhp", data);
+  });
+
 });
 
 app.get("/", (req, resp) => resp.send("socket-v1"));
