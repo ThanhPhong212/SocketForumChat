@@ -27,19 +27,24 @@ const io = socketio(server, {
 
 io.on("connection", (socket) => {
   const courseId = socket.handshake.query.courseId;
-  socket.join(courseId);
+  const site = socket.handshake.query.site;
 
-  socket.on("sendMessServer", (data) => {
-    io.to(courseId).emit("sendMessClient", data);
-  });
+  if (courseId) {
+    const room = courseId + site;
+    socket.join(room);
 
-  socket.on("sendReplyServer", (data) => {
-    io.to(courseId).emit("sendReplyClient", data);
-  });
+    socket.on("sendMessServer", (data) => {
+      io.to(room).emit("sendMessClient", data);
+    });
 
-  socket.on("replyResServer", (id) => {
-    io.to(courseId).emit("replyResClient", id);
-  });
+    socket.on("sendReplyServer", (data) => {
+      io.to(room).emit("sendReplyClient", data);
+    });
+
+    socket.on("replyResServer", (id) => {
+      io.to(room).emit("replyResClient", id);
+    });
+  }
 
   socket.on("actionSocketPush", (data) => {
     io.emit("actionClient", data);
@@ -48,7 +53,6 @@ io.on("connection", (socket) => {
   socket.on("actionSocketPull", (data) => {
     io.emit("actionPhp", data);
   });
-
 });
 
 app.get("/", (req, resp) => resp.send("socket-v1"));
